@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YouTube Clone</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="cont">
+         <div id="logo">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA3ElEQVR4Ae2WIQzDIBBFEdPV6Ip6L2Y3Me9NMzuB98GbWrysqHf1otWYismm+vYFTRCEhXXjJrjkmSslLwHgi8vjxkoRKAL/J0BCSHAHGhjQgxHMwIKnY/Px+taNHd2/Bmg3p4wKuIH0Y1RQAB+ugDJxDgn0GQVMSMBmFJhDApSTYwLLQtR13xNAo0oWINS6ErXtpxInX0CmC3g1TURNkypQ+QL1IYG9hiFFRPIL8C8B/ybkO4bsFxH7Vcz+GLE/x5yBRL+LZDVQkTi2Ochn70dimQpFspKKi0AReAF/IVUTZ3/BGQAAAABJRU5ErkJggg==" alt="YouTube Logo">
+         <span><b>YouTube</b></span>
+    </div>
+    <span>
+         <form id="searchForm">
+        <input type="text" id="searchQuery" placeholder="Enter search Text">
+        <button type="submit">Search</button>
+    </form>
+    </span>
+    </div>
+
+    <div id="sidebar" class="hide-sidebar">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Trending</a></li>
+            <li><a href="#">Subscriptions</a></li>
+            <li><a href="#">Library</a></li>
+            <li><a href="#">History</a></li>
+            <li><a href="#">Your Videos</a></li>
+            <li><a href="#">Watch Later</a></li>
+            <li><a href="#">Liked Videos</a></li>
+        </ul>
+    </div>
+   
+   
+   
+    <div id="videos"></div>
+
+    <script>
+        // Get references to the sidebar and search form
+        const sidebar = document.getElementById('sidebar');
+        const searchForm = document.getElementById('searchForm');
+
+        // Handle search form submission
+        function handleSearch(event) {
+            event.preventDefault();
+
+            // Hide the sidebar
+            sidebar.classList.add('hide-sidebar');
+
+            // Rest of your search functionality
+            // ...
+        }
+
+        // Add event listener to the search form
+        searchForm.addEventListener('submit', handleSearch);
+    </script>
+    
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>YouTube Clone - Watch Video</title>
+</head>
+<body>
+  <div id="player"></div>
+  <div id="video-info"></div>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="https://apis.google.com/js/api.js"></script>
+  <script>
+    // Get the video ID from the URL query parameter
+    const videoId = new URLSearchParams(window.location.search).get('id');
+
+    // Create the YouTube player
+    let player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '360',
+        width: '640',
+        videoId: videoId,
+        events: {
+          'onReady': onPlayerReady
+        }
+      });
+    }
+
+    // Load the YouTube API
+    function handleClientLoad() {
+      gapi.load('client', () => {
+        gapi.client.init({
+          apiKey: 'AIzaSyDLsb6liTLGGh4DlfIULZ0gyU-XogPZeZs',
+          discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest']
+        }).then(() => {
+          fetchVideoInfo(videoId);
+        });
+      });
+    }
+
+    // Fetch video information using YouTube Data API
+    function fetchVideoInfo(videoId) {
+      const request = gapi.client.youtube.videos.list({
+        part: 'snippet,statistics',
+        id: videoId
+      });
+
+      request.execute(response => {
+        const video = response.items[0];
+        displayVideoInfo(video);
+      });
+    }
+
+    // Display video information on the page
+    function displayVideoInfo(video) {
+      const videoInfoContainer = document.getElementById('video-info');
+
+      const title = video.snippet.title;
+      const channelTitle = video.snippet.channelTitle;
+      const description = video.snippet.description;
+      const viewCount = video.statistics.viewCount;
+      const likeCount = video.statistics.likeCount;
+      const commentCount = video.statistics.commentCount;
+
+      videoInfoContainer.innerHTML = `
+        <h1>${title}</h1>
+        <p>Channel: ${channelTitle}</p>
+        <p>Description: ${description}</p>
+        <p>Views: ${viewCount}</p>
+        <p>Likes: ${likeCount}</p>
+        <p>Comments: ${commentCount}</p>
+      `;
+    }
+
+    // Initialize the app
+    function init() {
+      gapi.load('client', handleClientLoad);
+    }
+
+    init();
+
+    // Auto-play the video when the player is ready
+    function onPlayerReady(event) {
+      event.target.playVideo();
+    }
+
+  </script>
+</body>
+</html>
